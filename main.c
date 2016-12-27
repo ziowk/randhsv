@@ -35,42 +35,42 @@ int main() {
   // srand(time(NULL)) is not enough, because time(NULL) changes only each
   // second. Use posix's gettimeofday.
   struct timeval tv;
-  gettimeofday(&tv, NULL); // should not fail
+  gettimeofday(&tv, NULL);  // should not fail
   // it's just a seed, so wraparound overflow is what we want
   unsigned int seed = (unsigned int)tv.tv_sec + (unsigned int)(1000 * tv.tv_usec); 
   srand(seed);
 
-  float hue = rand() % 360; // range [0, 360]
-  const float saturation = 0.5f; // range [0, 1]
-  const float value = 0.95f; // range [0, 1]
+  float hue = rand() % 360;  // range [0, 360)
+  const float saturation = 0.5f;  // range [0, 1]
+  const float value = 0.95f;  // range [0, 1]
 
-	float fC = value * saturation; // Chroma
+	float fC = value * saturation;  // Chroma
   float fHPrime = fmod(hue / 60.0, 6);
   float fX = fC * (1 - fabs(fmod(fHPrime, 2) - 1));
   float fM = value - fC;
   
   float fR, fG, fB;
-  if(0 <= fHPrime && fHPrime < 1) {
+  if (0 <= fHPrime && fHPrime < 1) {
     fR = fC;
     fG = fX;
     fB = 0;
-  } else if(1 <= fHPrime && fHPrime < 2) {
+  } else if (1 <= fHPrime && fHPrime < 2) {
     fR = fX;
     fG = fC;
     fB = 0;
-  } else if(2 <= fHPrime && fHPrime < 3) {
+  } else if (2 <= fHPrime && fHPrime < 3) {
     fR = 0;
     fG = fC;
     fB = fX;
-  } else if(3 <= fHPrime && fHPrime < 4) {
+  } else if (3 <= fHPrime && fHPrime < 4) {
     fR = 0;
     fG = fX;
     fB = fC;
-  } else if(4 <= fHPrime && fHPrime < 5) {
+  } else if (4 <= fHPrime && fHPrime < 5) {
     fR = fX;
     fG = 0;
     fB = fC;
-  } else if(5 <= fHPrime && fHPrime < 6) {
+  } else if (5 <= fHPrime && fHPrime < 6) {
     fR = fC;
     fG = 0;
     fB = fX;
