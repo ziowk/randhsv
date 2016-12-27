@@ -29,10 +29,16 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
+#include <sys/time.h>
 
 int main() {
-  srand(time(NULL));
+  // srand(time(NULL)) is not enough, because time(NULL) changes only each
+  // second. Use posix's gettimeofday.
+  struct timeval tv;
+  gettimeofday(&tv, NULL); // should not fail
+  // it's just a seed, so wraparound overflow is what we want
+  unsigned int seed = (unsigned int)tv.tv_sec + (unsigned int)(1000 * tv.tv_usec); 
+  srand(seed);
 
   float hue = rand() % 360; // range [0, 360]
   const float saturation = 0.5f; // range [0, 1]
