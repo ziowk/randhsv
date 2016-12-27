@@ -1,0 +1,30 @@
+Overview:
+Outputs terminal escape code for 24bit rgb color to stdout. Color is generated
+as hsv with random hue, saturation=0.5, value=0.95 and converted to rgb.
+
+Usage:
+Put it as \[$(randhsv)\] in $PS1 in your .bashrc before string which you want to
+be colored with randomish color. Don't forget to reset color afterwards.
+
+Requirements:
+Your terminal should support 24bit color escape codes (with semicolons). Test
+it with:
+$ echo -e '\x1b[38;2;166;45;182mPURPLE TEXT\x1b[0m'
+You should get purple text. You can also use [1] to be sure.
+
+[1] https://raw.githubusercontent.com/JohnMorales/dotfiles/master/colors/24-bit-color.sh
+
+Build:
+$ make
+
+Installation:
+Copy 'randhsv' to a directory in $PATH, I use $HOME/bin.
+
+License:
+BSD-3
+
+Code for conversion from hsv to rgb is taken from [2]. See ORIGINAL-NOTICE file
+for original copyright notice, list of conditions and disclaimer regarding that
+part of code.
+
+[2] https://gist.github.com/fairlight1337/4935ae72bcbcc1ba5c72
